@@ -1,0 +1,412 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Carbon Footprint EMS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+      <div class="brand-icon">
+        <svg viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="17" stroke="currentColor" stroke-width="1.5"/><path d="M18 8C14 12 10 14 10 19c0 4.4 3.6 8 8 8s8-3.6 8-8c0-5-4-7-8-11z" fill="currentColor" opacity="0.8"/><path d="M18 14c-2 3-4 4-4 6.5A4 4 0 0018 24.5 4 4 0 0022 20.5c0-2.5-2-3.5-4-6.5z" fill="white" opacity="0.6"/></svg>
+      </div>
+      <div class="brand-text">
+        <span class="brand-title">Carbon<span class="accent">EMS</span></span>
+        <span class="brand-sub">Emission Management</span>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a href="#" class="nav-item active" data-page="dashboard">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        Dashboard
+      </a>
+      <a href="#" class="nav-item" data-page="devices">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M8 6V4M16 6V4"/><circle cx="12" cy="12" r="2"/></svg>
+        Device Usage
+      </a>
+      <a href="#" class="nav-item" data-page="internet">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 3c-3 3-4 5.5-4 9s1 6 4 9M12 3c3 3 4 5.5 4 9s-1 6-4 9M3 12h18"/></svg>
+        Internet Usage
+      </a>
+      <a href="#" class="nav-item" data-page="electricity">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 2L4.09 12.26A1 1 0 005 14h6l-1 8 8.91-10.26A1 1 0 0019 10h-6l1-8z"/></svg>
+        Electricity
+      </a>
+      <a href="#" class="nav-item" data-page="reports">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="12" y2="17"/></svg>
+        Reports
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="eco-badge">
+        <span class="eco-dot"></span>
+        <span>Green IT Monitor</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <main class="main-content" id="mainContent">
+
+    <!-- Top Bar -->
+    <header class="topbar">
+      <div class="topbar-left">
+        <button class="menu-btn" id="menuBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+        <div class="page-title" id="pageTitle">Dashboard</div>
+      </div>
+      <div class="topbar-right">
+        <div class="date-chip" id="currentDate"></div>
+        <div class="user-chip">Admin</div>
+      </div>
+    </header>
+
+    <!-- Pages -->
+    <div class="page-container">
+
+      <!-- ═══ DASHBOARD PAGE ═══ -->
+      <section class="page active" id="page-dashboard">
+        <div class="section-header">
+          <h2>Emission Overview <span class="period-tag">Last 30 Days</span></h2>
+          <p>Total carbon footprint across all IT infrastructure</p>
+        </div>
+
+        <div class="stat-grid">
+          <div class="stat-card total">
+            <div class="stat-icon">🌍</div>
+            <div class="stat-info">
+              <div class="stat-value" id="statTotal">—</div>
+              <div class="stat-label">Total CO₂ (kg)</div>
+            </div>
+            <div class="stat-bar"><div class="stat-bar-fill" style="width:100%"></div></div>
+          </div>
+          <div class="stat-card elec">
+            <div class="stat-icon">⚡</div>
+            <div class="stat-info">
+              <div class="stat-value" id="statElec">—</div>
+              <div class="stat-label">Electricity Emissions</div>
+            </div>
+          </div>
+          <div class="stat-card inet">
+            <div class="stat-icon">🌐</div>
+            <div class="stat-info">
+              <div class="stat-value" id="statInet">—</div>
+              <div class="stat-label">Internet Emissions</div>
+            </div>
+          </div>
+          <div class="stat-card device">
+            <div class="stat-icon">💻</div>
+            <div class="stat-info">
+              <div class="stat-value" id="statDev">—</div>
+              <div class="stat-label">Device Emissions</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="charts-row">
+          <div class="chart-card wide">
+            <div class="chart-header">
+              <h3>Emission Trend</h3>
+              <span class="chart-sub">Daily electricity emissions (kg CO₂)</span>
+            </div>
+            <canvas id="trendChart" height="200"></canvas>
+          </div>
+          <div class="chart-card">
+            <div class="chart-header">
+              <h3>By Department</h3>
+              <span class="chart-sub">Last 30 days</span>
+            </div>
+            <canvas id="deptChart" height="200"></canvas>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══ DEVICE USAGE PAGE ═══ -->
+      <section class="page" id="page-devices">
+        <div class="section-header">
+          <h2>Device Usage Log</h2>
+          <p>Track CO₂ emissions from computers, servers, mobiles and other devices</p>
+        </div>
+
+        <div class="form-card">
+          <h3 class="form-title">Log Device Usage</h3>
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Device</label>
+              <select id="deviceSelect"><option value="">Select device...</option></select>
+            </div>
+            <div class="form-group">
+              <label>Date</label>
+              <input type="date" id="deviceDate" />
+            </div>
+            <div class="form-group">
+              <label>Hours Used</label>
+              <input type="number" id="deviceHours" placeholder="e.g. 8" min="0" max="24" step="0.5" />
+            </div>
+            <div class="form-group">
+              <label>Recorded By</label>
+              <input type="text" id="deviceRecorder" placeholder="Your name" />
+            </div>
+            <div class="form-group full">
+              <label>Notes (optional)</label>
+              <input type="text" id="deviceNotes" placeholder="Any additional notes..." />
+            </div>
+          </div>
+          <div class="form-actions">
+            <button class="btn-primary" onclick="submitDeviceUsage()">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              Log Usage
+            </button>
+            <div class="form-msg" id="deviceMsg"></div>
+          </div>
+        </div>
+
+        <div class="table-card">
+          <div class="table-header">
+            <h3>Usage Records</h3>
+            <div class="filter-row">
+              <input type="date" id="deviceFilterFrom" placeholder="From" />
+              <input type="date" id="deviceFilterTo" placeholder="To" />
+              <button class="btn-sm" onclick="loadDeviceUsage()">Filter</button>
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr>
+                <th>Date</th><th>Device</th><th>Type</th><th>Department</th>
+                <th>Hrs</th><th>CO₂ (kg)</th><th>Recorder</th><th></th>
+              </tr></thead>
+              <tbody id="deviceTable"><tr><td colspan="8" class="loading">Loading...</td></tr></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══ INTERNET PAGE ═══ -->
+      <section class="page" id="page-internet">
+        <div class="section-header">
+          <h2>Internet Consumption</h2>
+          <p>Monitor data usage and associated carbon emissions per department</p>
+        </div>
+
+        <div class="form-card">
+          <h3 class="form-title">Log Internet Usage</h3>
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Department</label>
+              <select id="inetDeptSelect"><option value="">Select department...</option></select>
+            </div>
+            <div class="form-group">
+              <label>Date</label>
+              <input type="date" id="inetDate" />
+            </div>
+            <div class="form-group">
+              <label>Data Used (GB)</label>
+              <input type="number" id="inetData" placeholder="e.g. 45.5" min="0" step="0.01" />
+            </div>
+            <div class="form-group">
+              <label>Number of Users</label>
+              <input type="number" id="inetUsers" placeholder="e.g. 30" min="1" />
+            </div>
+            <div class="form-group">
+              <label>Connection Type</label>
+              <select id="inetType">
+                <option value="broadband">Broadband</option>
+                <option value="wifi">Wi-Fi</option>
+                <option value="fiber">Fiber</option>
+                <option value="mobile_data">Mobile Data</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Recorded By</label>
+              <input type="text" id="inetRecorder" placeholder="Your name" />
+            </div>
+          </div>
+          <div class="form-actions">
+            <button class="btn-primary" onclick="submitInternet()">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              Log Usage
+            </button>
+            <div class="form-msg" id="inetMsg"></div>
+          </div>
+        </div>
+
+        <div class="table-card">
+          <div class="table-header">
+            <h3>Internet Usage Records</h3>
+            <div class="filter-row">
+              <input type="date" id="inetFilterFrom" />
+              <input type="date" id="inetFilterTo" />
+              <button class="btn-sm" onclick="loadInternet()">Filter</button>
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr>
+                <th>Date</th><th>Department</th><th>Data (GB)</th><th>Users</th>
+                <th>Type</th><th>CO₂ (kg)</th><th>Recorder</th><th></th>
+              </tr></thead>
+              <tbody id="inetTable"><tr><td colspan="8" class="loading">Loading...</td></tr></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══ ELECTRICITY PAGE ═══ -->
+      <section class="page" id="page-electricity">
+        <div class="section-header">
+          <h2>Electricity Usage</h2>
+          <p>Track lab and office electricity consumption and carbon impact</p>
+        </div>
+
+        <div class="form-card">
+          <h3 class="form-title">Log Electricity Usage</h3>
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Department / Lab</label>
+              <select id="elecDeptSelect"><option value="">Select department...</option></select>
+            </div>
+            <div class="form-group">
+              <label>Date</label>
+              <input type="date" id="elecDate" />
+            </div>
+            <div class="form-group">
+              <label>Units Consumed (kWh)</label>
+              <input type="number" id="elecUnits" placeholder="e.g. 54.0" min="0" step="0.01" />
+            </div>
+            <div class="form-group">
+              <label>Meter Reading Start</label>
+              <input type="number" id="elecStart" placeholder="e.g. 1000" min="0" step="0.01" />
+            </div>
+            <div class="form-group">
+              <label>Meter Reading End</label>
+              <input type="number" id="elecEnd" placeholder="e.g. 1054" min="0" step="0.01" />
+            </div>
+            <div class="form-group">
+              <label>Recorded By</label>
+              <input type="text" id="elecRecorder" placeholder="Your name" />
+            </div>
+            <div class="form-group full">
+              <label>Notes (optional)</label>
+              <input type="text" id="elecNotes" placeholder="Any additional notes..." />
+            </div>
+          </div>
+          <div class="form-actions">
+            <button class="btn-primary" onclick="submitElectricity()">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              Log Usage
+            </button>
+            <div class="form-msg" id="elecMsg"></div>
+          </div>
+        </div>
+
+        <div class="table-card">
+          <div class="table-header">
+            <h3>Electricity Records</h3>
+            <div class="filter-row">
+              <input type="date" id="elecFilterFrom" />
+              <input type="date" id="elecFilterTo" />
+              <button class="btn-sm" onclick="loadElectricity()">Filter</button>
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr>
+                <th>Date</th><th>Department</th><th>kWh</th><th>Meter Start</th>
+                <th>Meter End</th><th>CO₂ (kg)</th><th>Recorder</th><th></th>
+              </tr></thead>
+              <tbody id="elecTable"><tr><td colspan="8" class="loading">Loading...</td></tr></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══ REPORTS PAGE ═══ -->
+      <section class="page" id="page-reports">
+        <div class="section-header">
+          <h2>Emission Reports</h2>
+          <p>Comprehensive analysis and insights for decision making</p>
+        </div>
+
+        <div class="reports-grid">
+          <div class="report-card">
+            <div class="report-icon elec">⚡</div>
+            <h3>Electricity</h3>
+            <div class="report-value" id="repElecKg">—</div>
+            <div class="report-sub">kg CO₂ / 30 days</div>
+            <div class="report-detail"><span id="repElecKwh">—</span> kWh consumed</div>
+          </div>
+          <div class="report-card">
+            <div class="report-icon inet">🌐</div>
+            <h3>Internet</h3>
+            <div class="report-value" id="repInetKg">—</div>
+            <div class="report-sub">kg CO₂ / 30 days</div>
+            <div class="report-detail"><span id="repInetGb">—</span> GB consumed</div>
+          </div>
+          <div class="report-card">
+            <div class="report-icon dev">💻</div>
+            <h3>Devices</h3>
+            <div class="report-value" id="repDevKg">—</div>
+            <div class="report-sub">kg CO₂ / 30 days</div>
+            <div class="report-detail"><span id="repDevHrs">—</span> device-hours</div>
+          </div>
+          <div class="report-card total">
+            <div class="report-icon total-icon">🌍</div>
+            <h3>Total Footprint</h3>
+            <div class="report-value" id="repTotal">—</div>
+            <div class="report-sub">kg CO₂ equivalent</div>
+            <div class="report-detail">Trees needed: <span id="repTrees">—</span></div>
+          </div>
+        </div>
+
+        <div class="chart-card full-width">
+          <div class="chart-header">
+            <h3>Monthly Electricity Emission Trend</h3>
+            <span class="chart-sub">Last 6 months — kg CO₂</span>
+          </div>
+          <canvas id="monthlyChart" height="160"></canvas>
+        </div>
+
+        <div class="table-card">
+          <div class="table-header"><h3>Department-wise Emissions (Last 30 Days)</h3></div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Department</th><th>CO₂ Emission (kg)</th><th>% Share</th><th>Severity</th></tr></thead>
+              <tbody id="deptReportTable"><tr><td colspan="4" class="loading">Loading...</td></tr></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="green-tips">
+          <h3>💡 Green IT Recommendations</h3>
+          <div class="tips-grid">
+            <div class="tip-card"><div class="tip-num">01</div><p>Enable power-saving mode on all lab computers when idle for more than 10 minutes.</p></div>
+            <div class="tip-card"><div class="tip-num">02</div><p>Schedule server maintenance during off-peak hours to reduce simultaneous load.</p></div>
+            <div class="tip-card"><div class="tip-num">03</div><p>Replace older CRT/LCD monitors with energy-efficient LED displays.</p></div>
+            <div class="tip-card"><div class="tip-num">04</div><p>Implement a BYOD policy to reduce institutional device count and energy usage.</p></div>
+            <div class="tip-card"><div class="tip-num">05</div><p>Use video conferencing to reduce in-person travel-related emissions.</p></div>
+            <div class="tip-card"><div class="tip-num">06</div><p>Audit unused equipment and decommission devices not in regular use.</p></div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Toast notification -->
+  <div class="toast" id="toast"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
