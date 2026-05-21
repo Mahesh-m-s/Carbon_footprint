@@ -28,6 +28,40 @@ pool.getConnection()
   .then(conn => { console.log('✅ MySQL Connected'); conn.release(); })
   .catch(err => console.error('❌ MySQL Connection Failed:', err.message));
 
+// ─── AUTHENTICATION ────────────────────────────────────────────────────────
+app.post('/api/login', async (req, res) => {
+  const { username, password, dob, type } = req.body;
+  try {
+    if (type === 'admin') {
+      const [rows] = await pool.query('SELECT * FROM users WHERE username = ? AND role = "admin"', [username]);
+      if (rows.length > 0) {
+        if (rows[0].password === password) {
+          return res.json({ success: true, role: 'admin', username });
+        } else {
+          return res.status(401).json({ success: false, error: 'Incorrect Password' });
+        }
+      }
+      return res.status(401).json({ success: false, error: 'Admin ID not found' });
+    } else if (type === 'user') {
+      if (!username || !dob) return res.status(400).json({ success: false, error: 'USN and Date of Birth required' });
+      const [rows] = await pool.query("SELECT *, DATE_FORMAT(dob, '%Y-%m-%d') as formatted_dob FROM users WHERE username = ? AND role = 'user'", [username]);
+      if (rows.length === 0) {
+        await pool.query('INSERT INTO users (username, dob, role) VALUES (?, ?, "user")', [username, dob]);
+      } else {
+        const storedDob = rows[0].formatted_dob;
+        if (storedDob && storedDob !== dob) {
+          return res.status(401).json({ success: false, error: 'Incorrect Date of Birth' });
+        } else if (!storedDob) {
+          // If a user was added without a dob, we update it
+          await pool.query('UPDATE users SET dob = ? WHERE username = ?', [dob, username]);
+        }
+      }
+      return res.json({ success: true, role: 'user', username });
+    }
+    return res.status(400).json({ success: false, error: 'Invalid login type' });
+  } catch (err) { res.status(500).json({ success: false, error: err.message }); }
+});
+
 // ─── DEPARTMENTS ───────────────────────────────────────────────────────────
 app.get('/api/departments', async (req, res) => {
   try {

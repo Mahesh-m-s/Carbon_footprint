@@ -88,9 +88,23 @@ CREATE TABLE IF NOT EXISTS audit_logs (
   details TEXT
 );
 
+-- Users table for Authentication
+CREATE TABLE IF NOT EXISTS users (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  username VARCHAR(100) UNIQUE NOT NULL,
+  password VARCHAR(255),
+  dob DATE NULL,
+  role ENUM('user', 'admin') NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
 -- ============================================
 -- SAMPLE DATA
 -- ============================================
+
+INSERT IGNORE INTO users (username, password, dob, role) VALUES
+('admin', 'admin123', NULL, 'admin'),
+('1RV20CS001', NULL, '2002-05-15', 'user');
 
 INSERT INTO departments (name, type) VALUES
 ('Computer Science Lab A', 'lab'),

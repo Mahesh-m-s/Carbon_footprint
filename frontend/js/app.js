@@ -4,6 +4,32 @@
 
 const API = 'http://localhost:3000/api';
 
+const userRole = localStorage.getItem('carbonEmsRole');
+const userName = localStorage.getItem('carbonEmsUser');
+
+if (!userRole) {
+  window.location.href = 'login.html';
+}
+
+function logout() {
+  localStorage.removeItem('carbonEmsRole');
+  localStorage.removeItem('carbonEmsUser');
+  window.location.href = 'login.html';
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const chip = document.getElementById('userChip');
+  if (chip) chip.textContent = userName || 'User';
+  
+  if (userRole === 'user') {
+    const inetTab = document.querySelector('.nav-item[data-page="internet"]');
+    const elecTab = document.querySelector('.nav-item[data-page="electricity"]');
+    const repTab = document.querySelector('.nav-item[data-page="reports"]');
+    if (inetTab) inetTab.style.display = 'none';
+    if (elecTab) elecTab.style.display = 'none';
+    if (repTab) repTab.style.display = 'none';
+  }
+});
 // ─── Utility ─────────────────────────────────────────────────────────────
 
 async function apiFetch(url, opts = {}) {
@@ -230,7 +256,7 @@ async function loadDeviceUsage() {
       <td>${r.hours_used}h</td>
       <td class="emission-val">${fmtNum(r.emission_kg)} kg</td>
       <td>${r.recorded_by || '—'}</td>
-      <td><button class="btn-del" onclick="deleteRecord('device-usage', ${r.id}, loadDeviceUsage)">✕</button></td>
+      <td>${userRole === 'admin' ? `<button class="btn-del" onclick="deleteRecord('device-usage', ${r.id}, loadDeviceUsage)">✕</button>` : ''}</td>
     </tr>
   `).join('');
 }
@@ -287,7 +313,7 @@ async function loadInternet() {
       <td>${r.connection_type}</td>
       <td class="emission-val">${fmtNum(r.emission_kg)} kg</td>
       <td>${r.recorded_by || '—'}</td>
-      <td><button class="btn-del" onclick="deleteRecord('internet', ${r.id}, loadInternet)">✕</button></td>
+      <td>${userRole === 'admin' ? `<button class="btn-del" onclick="deleteRecord('internet', ${r.id}, loadInternet)">✕</button>` : ''}</td>
     </tr>
   `).join('');
 }
@@ -344,7 +370,7 @@ async function loadElectricity() {
       <td>${r.meter_reading_end ?? '—'}</td>
       <td class="emission-val">${fmtNum(r.emission_kg)} kg</td>
       <td>${r.recorded_by || '—'}</td>
-      <td><button class="btn-del" onclick="deleteRecord('electricity', ${r.id}, loadElectricity)">✕</button></td>
+      <td>${userRole === 'admin' ? `<button class="btn-del" onclick="deleteRecord('electricity', ${r.id}, loadElectricity)">✕</button>` : ''}</td>
     </tr>
   `).join('');
 }
