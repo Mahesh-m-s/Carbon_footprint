@@ -77,6 +77,17 @@ CREATE TABLE IF NOT EXISTS emission_factors (
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
+-- Audit Logs table to track database changes
+CREATE TABLE IF NOT EXISTS audit_logs (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  action_type ENUM('INSERT', 'UPDATE', 'DELETE') NOT NULL,
+  table_name VARCHAR(50) NOT NULL,
+  record_id INT NOT NULL,
+  performed_by VARCHAR(100) DEFAULT 'System',
+  action_timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  details TEXT
+);
+
 -- ============================================
 -- SAMPLE DATA
 -- ============================================

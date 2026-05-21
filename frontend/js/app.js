@@ -140,11 +140,11 @@ async function loadDashboard() {
       datasets: [{
         label: 'Electricity CO₂ (kg)',
         data: data.trend.map(r => r.elec_emission),
-        borderColor: '#3fb950',
-        backgroundColor: 'rgba(63, 185, 80, 0.1)',
+        borderColor: '#238636',
+        backgroundColor: 'rgba(35, 134, 54, 0.1)',
         tension: 0.4,
         fill: true,
-        pointBackgroundColor: '#3fb950',
+        pointBackgroundColor: '#238636',
         pointRadius: 4,
       }]
     },
@@ -154,7 +154,7 @@ async function loadDashboard() {
   // Dept Chart
   const deptCtx = document.getElementById('deptChart').getContext('2d');
   if (deptChartInst) deptChartInst.destroy();
-  const deptColors = ['#3fb950','#58d9cf','#e3b341','#79c0ff','#f85149','#b48ead'];
+  const deptColors = ['#238636','#0598bc','#b07d00','#0969da','#cf222e','#8250df'];
   deptChartInst = new Chart(deptCtx, {
     type: 'doughnut',
     data: {
@@ -162,7 +162,7 @@ async function loadDashboard() {
       datasets: [{
         data: data.byDept.map(r => r.emission_kg),
         backgroundColor: deptColors,
-        borderColor: '#161b22',
+        borderColor: '#ffffff',
         borderWidth: 3
       }]
     },
@@ -171,7 +171,7 @@ async function loadDashboard() {
       plugins: {
         legend: {
           position: 'bottom',
-          labels: { color: '#8b949e', font: { size: 11 }, padding: 10 }
+          labels: { color: '#57606a', font: { size: 11 }, padding: 10 }
         }
       }
     }
@@ -184,17 +184,17 @@ function chartDefaults() {
     maintainAspectRatio: true,
     plugins: {
       legend: {
-        labels: { color: '#8b949e', font: { family: 'DM Mono', size: 11 } }
+        labels: { color: '#57606a', font: { family: 'DM Mono', size: 11 } }
       }
     },
     scales: {
       x: {
-        ticks: { color: '#8b949e', font: { size: 10 } },
-        grid: { color: '#2a3441' }
+        ticks: { color: '#57606a', font: { size: 10 } },
+        grid: { color: '#e1e4e8' }
       },
       y: {
-        ticks: { color: '#8b949e', font: { size: 10 } },
-        grid: { color: '#2a3441' }
+        ticks: { color: '#57606a', font: { size: 10 } },
+        grid: { color: '#e1e4e8' }
       }
     }
   };
@@ -436,8 +436,8 @@ async function loadReports() {
         datasets: [{
           label: 'Monthly Electricity CO₂ (kg)',
           data: monthly.data.map(r => r.emission_kg),
-          backgroundColor: 'rgba(63, 185, 80, 0.7)',
-          borderColor: '#3fb950',
+          backgroundColor: 'rgba(35, 134, 54, 0.7)',
+          borderColor: '#238636',
           borderWidth: 1,
           borderRadius: 4
         }]
