@@ -24,10 +24,8 @@ document.addEventListener('DOMContentLoaded', () => {
   if (userRole === 'user') {
     const inetTab = document.querySelector('.nav-item[data-page="internet"]');
     const elecTab = document.querySelector('.nav-item[data-page="electricity"]');
-    const repTab = document.querySelector('.nav-item[data-page="reports"]');
     if (inetTab) inetTab.style.display = 'none';
     if (elecTab) elecTab.style.display = 'none';
-    if (repTab) repTab.style.display = 'none';
   }
 });
 // ─── Utility ─────────────────────────────────────────────────────────────
