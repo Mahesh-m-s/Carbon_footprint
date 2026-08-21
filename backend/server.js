@@ -326,8 +326,13 @@ app.get('/api/dashboard/monthly', async (req, res) => {
 app.get('/', (req, res) => res.sendFile(path.join(__dirname, '../frontend/index.html')));
 app.get('*', (req, res) => res.sendFile(path.join(__dirname, '../frontend/index.html')));
 
-app.listen(PORT, () => {
-  console.log(`🌿 Carbon Footprint Server running at http://localhost:${PORT}`);
+// app.listen(PORT, () => {
+//   console.log(`🌿 Carbon Footprint Server running at http://localhost:${PORT}`);
+// });
+
+//this is for render
+app.listen(PORT, '0.0.0.0', () => {
+    console.log(`🌿 Carbon Footprint Server running on port ${PORT}`);
 });
 
 
