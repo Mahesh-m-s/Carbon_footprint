@@ -2,7 +2,8 @@
   Carbon Footprint EMS — Frontend JS
    ============================================ */
 
-const API = 'http://localhost:3000/api';
+// const API = 'http://localhost:3000/api';
+const API = 'https://carbon-footprint-1-7bip.onrender.com/api';
 
 const userRole = localStorage.getItem('carbonEmsRole');
 const userName = localStorage.getItem('carbonEmsUser');
